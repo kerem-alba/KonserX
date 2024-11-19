@@ -10,6 +10,7 @@ import IntroductionScreen from "../screens/Intro/IntroductionScreen";
 import LoginScreen from "../screens/Login/LoginScreen";
 import ConcertDetails from "../screens/ConcertDetails/ConcertDetails";
 import { Ionicons } from "@expo/vector-icons";
+import { PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR } from "../utils/colors";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,8 +31,8 @@ function BottomTabNavigation() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: "tomato",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: PRIMARY_COLOR,
+        tabBarInactiveTintColor: TEXT_COLOR,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

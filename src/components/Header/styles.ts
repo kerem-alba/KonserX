@@ -6,10 +6,17 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 40,
+    marginTop: -10,
     paddingVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: "darkgreen",
+    backgroundColor: BACKGROUND_COLOR,
+  },
+  innerContainer: {
+    paddingTop: 35,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
   },
   profileInfoContainer: {
     flexDirection: "row",
@@ -18,7 +25,7 @@ export const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     fontWeight: "bold",
-    color: "#aaa",
+    color: TEXT_LIGHT,
   },
   image: {
     width: 40,
@@ -30,7 +37,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#aaa",
+    borderColor: TEXT_LIGHT,
     borderRadius: 20,
     padding: 5,
     paddingHorizontal: 10,
@@ -38,7 +45,7 @@ export const styles = StyleSheet.create({
   },
   locationText: {
     fontSize: 12,
-    color: "#aaa",
+    color: TEXT_LIGHT,
     paddingHorizontal: 8,
   },
 });

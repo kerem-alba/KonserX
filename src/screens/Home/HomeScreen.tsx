@@ -32,12 +32,14 @@ export default function HomeScreen() {
   }, [accessToken]);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <UserHeader />
-      <ConcertCarousel concerts={favoriteConcerts} header="Favorite Concerts" text="See all" />
-      <ConcertGrid concerts={popularConcerts} header="Popular Concerts" text="See all" />
-      <ConcertCarousel concerts={upcomingConcerts} header="Upcoming Concerts" text="See all" />
-      <Text>HomeScreen</Text>
-    </ScrollView>
+      <ScrollView>
+        <ConcertCarousel concerts={favoriteConcerts} header="Favorite Concerts" text="See all" />
+        <ConcertGrid concerts={popularConcerts} header="Popular Concerts" text="See all" />
+        <ConcertCarousel concerts={upcomingConcerts} header="Upcoming Concerts" text="See all" />
+        <View style={styles.footer}></View>
+      </ScrollView>
+    </View>
   );
 }

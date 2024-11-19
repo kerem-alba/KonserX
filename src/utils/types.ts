@@ -6,6 +6,17 @@ export interface Artist {
   images: { url: string }[];
 }
 
+export interface SpotifyArtist {
+  genre1: string;
+  genre2: string;
+  genre3: string;
+  id: string;
+  imageUrl1: string;
+  imageUrl2: string;
+  name: string;
+  popularity: number;
+}
+
 export interface Concert {
   ArtistName: string;
   City: string;

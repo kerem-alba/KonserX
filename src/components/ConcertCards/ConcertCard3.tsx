@@ -5,7 +5,7 @@ import { ConcertWithDetails } from "../../utils/types";
 
 const { width } = Dimensions.get("window");
 
-export default function UpcomingConcertInfoBox({ concert }: { concert: ConcertWithDetails }) {
+export default function ConcertCard3({ concert }: { concert: ConcertWithDetails }) {
   return (
     <View style={styles.box}>
       <Image source={{ uri: concert.ImgUrl }} style={styles.image} />

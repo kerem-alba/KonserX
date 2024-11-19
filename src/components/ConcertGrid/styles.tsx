@@ -1,17 +1,19 @@
 import { StyleSheet } from "react-native";
+import { TEXT_LIGHT } from "../../utils/colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 15,
   },
   headerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 10,
+    width: "100%",
+    paddingHorizontal: 10,
   },
   header: {
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 5,
     color: "white",
@@ -20,9 +22,11 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
-    color: "#FF4D4D",
     fontWeight: "bold",
-    paddingRight: 10,
+    marginBottom: 5,
+    color: "gray",
+    textAlign: "left",
+    paddingLeft: 10,
   },
   flatList: {
     padding: 10,

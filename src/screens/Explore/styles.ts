@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#101510",
-    paddingTop: 20,
+    paddingBottom: 262,
   },
   gridContainer: {
     marginHorizontal: 10,

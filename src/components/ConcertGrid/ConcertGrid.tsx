@@ -6,7 +6,7 @@ import { RootStackParamList } from "../../navigations/type";
 import { ConcertGridProps } from "../../utils/types";
 import { styles } from "./styles";
 
-export default function PopConcertGrid({ concerts, header, text }: ConcertGridProps) {
+export default function ConcertGrid({ concerts, header, text }: ConcertGridProps) {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (

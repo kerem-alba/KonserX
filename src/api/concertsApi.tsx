@@ -106,3 +106,31 @@ export const getAllConcertsWithArtistInfo = async (): Promise<ConcertWithDetails
     throw error;
   }
 };
+
+export const getConcertsByFavoriteGenres = async (genres: string[]): Promise<any> => {
+  if (!Array.isArray(genres) || genres.length === 0) {
+    throw new Error("Türler listesi boş veya tanımlanmamış.");
+  }
+
+  const favoriteGenres = genres.join(",");
+
+  try {
+    const response = await fetch(`${BASE_URL}/concerts/bygenres?genres=${encodeURIComponent(favoriteGenres)}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text();
+      throw new Error(`Favori türlere göre konserleri getirirken hata oluştu: HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Hata:", error instanceof Error ? error.message : error);
+    throw error;
+  }
+};

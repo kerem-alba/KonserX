@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React, { useState, useEffect } from "react";
-import { ConcertWithDetails } from "../../utils/types";
+import { ConcertWithDetails, Concert } from "../../utils/types";
 import { getAllConcertsWithArtistInfo } from "../../api/concertsApi";
 import { filterConcerts } from "../../services/concertService";
 import { genreMappings } from "../../utils/genres";
 import UserHeader from "../../components/Header/UserHeader";
-import ConcertCard3 from "../../components/ConcertCards/ConcertCard3";
+import ConcertCard1 from "../../components/ConcertCards/ConcertCard1";
 import { styles } from "./styles";
 
 export default function ExploreScreen() {
@@ -123,7 +123,7 @@ export default function ExploreScreen() {
           contentContainerStyle={{ paddingBottom: 50 }}
           data={filteredConcerts.slice(0, visibleConcertCount)}
           numColumns={2}
-          renderItem={({ item }) => <ConcertCard3 concert={item} />}
+          renderItem={({ item }) => <ConcertCard1 concert={item} />}
           keyExtractor={(item) => item.Id.toString()}
           onEndReached={loadMoreConcerts}
           onEndReachedThreshold={0.5}

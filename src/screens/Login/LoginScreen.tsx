@@ -15,7 +15,7 @@ const logoSource = require("../../../assets/LoginLogo.jpg");
 import Entypo from "@expo/vector-icons/Entypo";
 import { useTokenStore } from "../../stores/tokenStore";
 import { useProfileStore } from "../../stores/profileStore";
-import { getUserProfileFromSpotify } from "../../services/spotifyService";
+import { getUserProfileFromSpotify } from "../../api/spotifyApi";
 import { spotifyAuthConfig, spotifyEndpoints } from "../../config/spotifyAuthConfig";
 
 type NavigationProps = StackNavigationProp<RootStackParamList, "Login">;

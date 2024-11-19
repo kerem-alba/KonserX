@@ -1,15 +1,41 @@
 import { getUserFavorites } from "./spotifyService";
-import { getConcertsByFavoriteArtists } from "../api/concertsApi";
-import { getRelatedArtistNames } from "./spotifyService";
-import { ConcertWithDetails } from "../utils/types";
+import { getConcertsByFavoriteArtists, getConcertsByFavoriteGenres } from "../api/concertsApi";
+import { ConcertWithDetails, SpotifyArtist, Concert } from "../utils/types";
 import { genreMappings } from "../utils/genres";
 import { startOfToday, endOfToday, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isWithinInterval } from "date-fns";
 
 export const fetchFavoriteConcerts = async (spotifyAccessToken: string) => {
-  const favorites = await getUserFavorites(spotifyAccessToken);
-  const matchedConcerts = await getConcertsByFavoriteArtists(favorites);
+  const favoriteArtists = await getUserFavorites(spotifyAccessToken);
+  const favoriteConcerts = await getConcertsByFavoriteArtists(favoriteArtists);
 
-  return matchedConcerts;
+  const topGenres = await getMostListenedGenres(favoriteArtists);
+  const genreConcerts = await getConcertsByFavoriteGenres(topGenres);
+
+  const mappedFavoriteConcerts: Concert[] = favoriteConcerts.map((concert: any) => ({
+    ArtistName: concert.ArtistName,
+    City: concert.City,
+    Id: concert.Id,
+    ConcertDate: concert.ConcertDate,
+    genres: [],
+    ImgUrl: concert.ImgUrl,
+    popularity: 0,
+    Venue: concert.Venue,
+  }));
+
+  const mappedGenreConcerts: Concert[] = genreConcerts.map((concert: any) => ({
+    ArtistName: concert.ArtistName,
+    City: concert.City,
+    Id: concert.ConcertId,
+    ConcertDate: concert.ConcertDate,
+    genres: [concert.genre1, concert.genre2, concert.genre3].filter(Boolean), // genre1, genre2, genre3
+    ImgUrl: concert.ImgUrl,
+    popularity: 0,
+    Venue: concert.Venue,
+  }));
+
+  const combinedConcerts: Concert[] = [...mappedFavoriteConcerts, ...mappedGenreConcerts];
+
+  return combinedConcerts;
 };
 
 export const filterConcerts = (
@@ -57,4 +83,17 @@ export const filterConcerts = (
   });
 
   return filteredConcerts.sort((a, b) => new Date(a.ConcertDate).getTime() - new Date(b.ConcertDate).getTime());
+};
+
+export const getMostListenedGenres = async (artists: SpotifyArtist[]) => {
+  const genres = artists.flatMap((artist) => [artist.genre1, artist.genre2, artist.genre3]).filter(Boolean);
+  const genreCounts = genres.reduce((acc, genre) => {
+    acc[genre] = (acc[genre] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+
+  return Object.entries(genreCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([genre]) => genre);
 };

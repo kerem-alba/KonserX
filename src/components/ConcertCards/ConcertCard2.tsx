@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from "react-native";
 import { Concert } from "../../utils/types";
+import CartHeader from "./CardHeader";
+import { TEXT_COLOR, TEXT_LIGHT } from "../../utils/colors";
 
 const { width } = Dimensions.get("window");
 
-export default function FavConcertInfoBox({ concert }: { concert: Concert }) {
+export default function ConcertCard2({ concert }: { concert: Concert }) {
   const { ArtistName, Venue, City, ConcertDate, ImgUrl } = concert;
   return (
     <View style={styles.box}>
-      <Image source={{ uri: ImgUrl }} style={styles.image} />
+      <ImageBackground source={{ uri: ImgUrl }} style={styles.image} resizeMode="cover">
+        <CartHeader artistName={ArtistName} date={ConcertDate} />
+      </ImageBackground>
       <View style={styles.textContainer}>
-        <Text style={styles.artistName}>{ArtistName}</Text>
         <Text style={styles.city}>{City}</Text>
-        <Text style={styles.venue}>{Venue}</Text>
-        <Text style={styles.date}>{ConcertDate}</Text>
+        <Text style={styles.venue} numberOfLines={1}>
+          {Venue}
+        </Text>
       </View>
     </View>
   );
@@ -21,48 +25,36 @@ export default function FavConcertInfoBox({ concert }: { concert: Concert }) {
 
 const styles = StyleSheet.create({
   box: {
-    width: width * 0.4,
+    marginHorizontal: 5,
+    width: width * 0.35,
     height: 250,
-    borderRadius: 10,
-    backgroundColor: "#f5f5f5",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
     marginVertical: 10,
-    overflow: "hidden",
+    backgroundColor: TEXT_COLOR,
   },
   image: {
     width: "100%",
-    height: 120,
+    height: 200,
   },
   textContainer: {
-    padding: 10,
+    padding: 2,
   },
-  artistName: {
-    fontSize: 16,
+  city: {
+    fontSize: 14,
+    color: TEXT_LIGHT,
+    marginTop: 5,
     fontWeight: "bold",
-    color: "#333",
+    textAlign: "center",
   },
   venue: {
     fontSize: 12,
-    color: "#555",
+    color: TEXT_LIGHT,
     marginTop: 5,
+    textAlign: "center",
   },
-  date: {
-    fontSize: 12,
-    color: "#888",
-    marginTop: 5,
-  },
+
   placeholderImage: {
     width: "100%",
     height: 200,
     backgroundColor: "#ccc",
-  },
-  city: {
-    fontSize: 16,
-    color: "#555",
-    marginTop: 5,
   },
 });
