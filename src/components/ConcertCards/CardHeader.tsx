@@ -10,7 +10,7 @@ const formatDateParts = (dateString: string) => {
     date = new Date(dateString);
   } else if (dateString.includes(".")) {
     const [day, month, year] = dateString.split(".").map(Number);
-    date = new Date(year, month - 1, day); // JS'te aylar 0 bazlıdır
+    date = new Date(year, month - 1, day);
   } else {
     throw new Error(`Unsupported date format: ${dateString}`);
   }

@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, Dimensions, ImageBackground } from "react-native";
+import { View, Text, Image, StyleSheet, Dimensions, ImageBackground, Pressable } from "react-native";
 import { Concert } from "../../utils/types";
 import CartHeader from "./CardHeader";
 import { TEXT_COLOR, TEXT_LIGHT } from "../../utils/colors";
+import { RootStackParamList } from "../../navigations/type";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
 export default function ConcertCard2({ concert }: { concert: Concert }) {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const { ArtistName, Venue, City, ConcertDate, ImgUrl } = concert;
   return (
-    <View style={styles.box}>
+    <Pressable style={styles.container} onPress={() => navigation.navigate("ConcertDetails", { id: concert.Id })}>
       <ImageBackground source={{ uri: ImgUrl }} style={styles.image} resizeMode="cover">
         <CartHeader artistName={ArtistName} date={ConcertDate} />
       </ImageBackground>
@@ -19,12 +23,12 @@ export default function ConcertCard2({ concert }: { concert: Concert }) {
           {Venue}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  box: {
+  container: {
     marginHorizontal: 5,
     width: width * 0.35,
     height: 250,

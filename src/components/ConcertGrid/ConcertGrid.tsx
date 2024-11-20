@@ -1,32 +1,34 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import React from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import ConcertCard1 from "../ConcertCards/ConcertCard1";
-import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { RootStackParamList } from "../../navigations/type";
 import { ConcertGridProps } from "../../utils/types";
 import { styles } from "./styles";
 
-export default function ConcertGrid({ concerts, header, text }: ConcertGridProps) {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
+export default function ConcertGrid({ concerts, header, text, onPress }: ConcertGridProps) {
+  const [visibleConcertCount, setVisibleConcertCount] = useState(8);
+  const loadMoreConcerts = () => {
+    setVisibleConcertCount((prevCount) => prevCount + 8);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}> {header} </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <Text style={styles.text}> {text} </Text>
         </TouchableOpacity>
       </View>
       <FlatList
         style={styles.flatList}
-        data={concerts}
+        data={concerts.slice(0, visibleConcertCount)}
         keyExtractor={(item) => item.Id.toString()}
         numColumns={2}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("ConcertDetails", { id: item.Id })}>
+          <View>
             <ConcertCard1 concert={item} />
-          </TouchableOpacity>
+          </View>
         )}
+        onEndReached={loadMoreConcerts}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );

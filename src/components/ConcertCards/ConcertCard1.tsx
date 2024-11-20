@@ -1,18 +1,22 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ImageBackground, Pressable } from "react-native";
 import { Concert } from "../../utils/types";
 import { TEXT_LIGHT } from "../../utils/colors";
 import { BlurView } from "expo-blur";
 import DateChip from "../../components/Chip/DateChip";
 import Entypo from "@expo/vector-icons/Entypo";
+import { RootStackParamList } from "../../navigations/type";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
 export default function ConcertCard1({ concert }: { concert: Concert }) {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const { ArtistName, Venue, City, ConcertDate, ImgUrl } = concert;
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => navigation.navigate("ConcertDetails", { id: concert.Id })}>
       <ImageBackground source={{ uri: ImgUrl }} style={styles.image} resizeMode="cover">
         <View style={styles.date}>
           <DateChip date={ConcertDate} />
@@ -29,7 +33,7 @@ export default function ConcertCard1({ concert }: { concert: Concert }) {
           </View>
         </BlurView>
       </ImageBackground>
-    </View>
+    </Pressable>
   );
 }
 

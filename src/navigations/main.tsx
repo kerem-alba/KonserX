@@ -9,6 +9,8 @@ import ExploreScreen from "../screens/Explore/ExploreScreen";
 import IntroductionScreen from "../screens/Intro/IntroductionScreen";
 import LoginScreen from "../screens/Login/LoginScreen";
 import ConcertDetails from "../screens/ConcertDetails/ConcertDetails";
+import PopularConcertsScreen from "../screens/Concerts/PopularConcertsScreen";
+import FavoriteConcertsScreen from "../screens/Concerts/FavoriteConcertsScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR } from "../utils/colors";
 
@@ -43,10 +45,12 @@ function BottomTabNavigation() {
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: "none" }}>
       <Stack.Screen name="Intro" component={IntroductionScreen} />
       <Stack.Screen name="Main" component={BottomTabNavigation} />
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="PopularConcerts" component={PopularConcertsScreen} />
+      <Stack.Screen name="FavoriteConcerts" component={FavoriteConcertsScreen} />
       <Stack.Screen name="ConcertDetails" component={ConcertDetails} />
     </Stack.Navigator>
   );

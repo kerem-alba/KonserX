@@ -49,10 +49,12 @@ export interface ConcertCarouselProps {
   concerts: Concert[];
   header: string;
   text: string;
+  onPress?: () => void;
 }
 
 export interface ConcertGridProps {
   concerts: Concert[];
   header: string;
   text: string;
+  onPress?: () => void;
 }
