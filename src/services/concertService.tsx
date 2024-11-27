@@ -9,6 +9,7 @@ export const fetchFavoriteConcerts = async (spotifyAccessToken: string) => {
   const favoriteConcerts = await getConcertsByFavoriteArtists(favoriteArtists);
 
   const topGenres = await getMostListenedGenres(favoriteArtists);
+  console.log("Top genres:", topGenres);
   const genreConcerts = await getConcertsByFavoriteGenres(topGenres);
 
   const mappedFavoriteConcerts: Concert[] = favoriteConcerts.map((concert: any) => ({
@@ -33,8 +34,9 @@ export const fetchFavoriteConcerts = async (spotifyAccessToken: string) => {
     Venue: concert.Venue,
   }));
 
-  const combinedConcerts: Concert[] = [...mappedFavoriteConcerts, ...mappedGenreConcerts];
-
+  const combinedConcerts: Concert[] = [...mappedFavoriteConcerts, ...mappedGenreConcerts].filter(
+    (concert, index, self) => index === self.findIndex((c) => c.Id === concert.Id)
+  );
   return combinedConcerts;
 };
 
@@ -94,6 +96,6 @@ export const getMostListenedGenres = async (artists: SpotifyArtist[]) => {
 
   return Object.entries(genreCounts)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 10)
+    .slice(0, 13)
     .map(([genre]) => genre);
 };

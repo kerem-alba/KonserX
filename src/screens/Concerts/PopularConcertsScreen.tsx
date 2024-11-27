@@ -20,7 +20,7 @@ export default function PopularConcertsScreen() {
   return (
     <View style={styles.container}>
       <UserHeader />
-      <ConcertGrid concerts={popularConcerts} header="Popular Concerts" text="" />
+      <ConcertGrid concerts={popularConcerts} header="Populer Konserler" text="" />
     </View>
   );
 }

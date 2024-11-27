@@ -20,6 +20,7 @@ export const genreMappings: { [key: string]: string[] } = {
     "Rockabilly",
     "Southern Rock",
     "Surf Rock",
+    "Turkish Rock",
   ],
   " Metal ": [
     "Atmospheric Black Metal",
@@ -39,6 +40,7 @@ export const genreMappings: { [key: string]: string[] } = {
     "Stoner Metal",
     "Symphonic Metal",
     "Thrash Metal",
+    "Turkish Metal",
     "Viking Metal",
   ],
   " Pop ": [

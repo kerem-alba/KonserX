@@ -9,4 +9,9 @@ export const styles = StyleSheet.create({
   footer: {
     height: 50,
   },
+  splashContainer: {
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
+  },
 });

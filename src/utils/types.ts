@@ -45,6 +45,13 @@ export type ConcertWithDetails = {
   spotifyId: string;
 };
 
+export type User = {
+  email: string;
+  id: number;
+  password: string;
+  spotifyId: string;
+};
+
 export interface ConcertCarouselProps {
   concerts: Concert[];
   header: string;

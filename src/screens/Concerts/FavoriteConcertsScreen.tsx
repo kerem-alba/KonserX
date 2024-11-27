@@ -3,14 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Concert } from "../../utils/types";
 import UserHeader from "../../components/Header/UserHeader";
 import ConcertGrid from "../../components/ConcertGrid/ConcertGrid";
-import { useTokenStore } from "../../stores/tokenStore";
+import { useSpotifyTokenStore } from "../../stores/spotifyTokenStore";
 import { fetchFavoriteConcerts } from "../../services/concertService";
 import { styles } from "./styles";
 
 export default function FavoriteConcertsScreen() {
   const [favoriteConcerts, setFavoriteConcerts] = useState<Concert[]>([]);
 
-  const accessToken = useTokenStore((state) => state.token);
+  const accessToken = useSpotifyTokenStore((state) => state.spotifyToken);
 
   useEffect(() => {
     const fetchConcerts = async () => {
@@ -25,7 +25,7 @@ export default function FavoriteConcertsScreen() {
   return (
     <View style={styles.container}>
       <UserHeader />
-      <ConcertGrid concerts={favoriteConcerts} header="Favorite Concerts" text="" />
+      <ConcertGrid concerts={favoriteConcerts} header="İlgini çekebilecek konserler" text="" />
     </View>
   );
 }

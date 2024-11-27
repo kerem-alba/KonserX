@@ -1,7 +1,5 @@
 import { BASE_URL } from "../config/localhostConfig";
-import { Artist, Concert, ConcertWithDetails } from "../utils/types";
 
-// Tüm sanatçıları getiren fonksiyon
 export const getAllArtists = async () => {
   try {
     const response = await fetch(`${BASE_URL}/artists`);
@@ -15,7 +13,6 @@ export const getAllArtists = async () => {
   }
 };
 
-// Belirli bir sanatçıyı spotifyId ile getiren fonksiyon
 export const getArtistBySpotifyId = async (spotifyId: string) => {
   try {
     const response = await fetch(`${BASE_URL}/artists/${spotifyId}`);
