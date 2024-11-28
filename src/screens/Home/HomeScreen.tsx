@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, Image } from "react-native";
-import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, ActivityIndicator, Image } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import UserHeader from "../../components/Header/UserHeader";
 import ConcertGrid from "../../components/ConcertGrid/ConcertGrid";
 import ConcertCarousel from "../../components/ConcertCarousel/ConcertCarousel";
@@ -10,35 +10,59 @@ import { useSpotifyTokenStore } from "../../stores/spotifyTokenStore";
 import { fetchFavoriteConcerts } from "../../services/concertService";
 import { getConcertsByUpcoming } from "../../api/concertsApi";
 import { getConcertsByPopularity } from "../../api/concertsApi";
+import * as SplashScreen from "expo-splash-screen";
 import { Concert } from "../../utils/types";
 import { styles } from "./styles";
 
 type NavigationProps = StackNavigationProp<RootStackParamList, "PopularConcerts">;
+SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
+  console.log("HomeScreen");
   const navigation = useNavigation<NavigationProps>();
-  const [isLoading, setIsLoading] = useState(true);
+  const [appIsReady, setAppIsReady] = useState(false);
 
   const [favoriteConcerts, setFavoriteConcerts] = useState<Concert[]>([]);
   const [upcomingConcerts, setUpcomingConcerts] = useState<Concert[]>([]);
   const [popularConcerts, setPopularConcerts] = useState<Concert[]>([]);
 
   const accessToken = useSpotifyTokenStore((state) => state.spotifyToken);
+  console.log("accessToken", accessToken);
 
   useEffect(() => {
+    console.log("here1  ");
     const fetchConcerts = async () => {
+      console.log("here5  ");
+      console.log("here4  ");
+      const upcomingConcerts = await getConcertsByUpcoming(10);
+      const popularConcerts = await getConcertsByPopularity(6);
+      setUpcomingConcerts(upcomingConcerts);
+      setPopularConcerts(popularConcerts);
       if (accessToken) {
-        const upcomingConcerts = await getConcertsByUpcoming(10);
         const favoriteConcerts = await fetchFavoriteConcerts(accessToken);
-        const popularConcerts = await getConcertsByPopularity(6);
-        setPopularConcerts(popularConcerts);
         setFavoriteConcerts(favoriteConcerts);
-        setUpcomingConcerts(upcomingConcerts);
-        setIsLoading(false);
       }
+      console.log("here3  ");
+      setAppIsReady(true);
     };
     fetchConcerts();
   }, [accessToken]);
+
+  const onLayoutRootView = useCallback(() => {
+    console.log("here2  ");
+    if (appIsReady) {
+      SplashScreen.hide();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return (
+      <View style={styles.splashContainer}>
+        <Image style={styles.splashImage} source={require("../../../assets/splash.jpg")} />
+        <ActivityIndicator size="large" color="#151718" />
+      </View>
+    );
+  }
 
   const navigateToPopularConcerts = () => {
     navigation.navigate("PopularConcerts");
@@ -52,16 +76,8 @@ export default function HomeScreen() {
     navigation.navigate("Main", { screen: "Explore" });
   };
 
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <Image source={require("../../../assets/splash.jpg")} />
-      </View>
-    );
-  }
-
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onLayoutRootView}>
       <UserHeader />
       <ScrollView>
         <ConcertCarousel

@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, Pressable, Alert } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigations/type";
@@ -33,45 +33,53 @@ export default function LoginScreen() {
   useEffect(() => {
     console.log("data", data);
     console.log("isSuccess", isSuccess);
+
     if (isSuccess && data?.token) {
       useTokenStore.getState().setToken(data.token);
+      console.log("Login Success going home");
       navigation.navigate("Main", { screen: "Home" });
     }
     if (isError) {
+      console.log("Login Error");
       Alert.alert("Login Error", "Email or password is incorrect");
+    }
+    if (isPending) {
+      console.log("Login Pending");
     }
   }, [isSuccess, isError, data]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image source={logoSource} style={styles.logo} />
-      <Formik
-        initialValues={{ email: "admin1@admin.com", password: "password" }}
-        validationSchema={LoginSchema}
-        onSubmit={(values) => login(values.email, values.password)}
-      >
-        {({ handleChange, handleSubmit, values, isValid }) => (
-          <ScrollView style={styles.inputContainer}>
-            <Input
-              labelText="Email"
-              placeholder="Please enter your email address"
-              value={values.email}
-              onChangeText={handleChange("email")}
-              errorText="Email is required"
-            />
-            <PasswordInput labelText="Password" value={values.password} onChangeText={handleChange("password")} errorText="Password is required" />
-            <Button onPress={handleSubmit} text="Login" disabled={!isValid} />
-            <Text style={styles.text}> Sign Up With</Text>
-            <TouchableOpacity style={styles.spotifyButton} onPress={() => navigation.navigate("Spotify")}>
-              <Entypo name="spotify" size={64} style={styles.spotifyIcon} />
-            </TouchableOpacity>
-            <Text style={styles.text}>Don't have an account? </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-              <Text style={styles.register}>Register Now</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        )}
-      </Formik>
-    </SafeAreaView>
+    <View style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
+        <Image source={logoSource} style={styles.logo} />
+        <Formik
+          initialValues={{ email: "admin1@admin.com", password: "password" }}
+          validationSchema={LoginSchema}
+          onSubmit={(values) => login(values.email, values.password)}
+        >
+          {({ handleChange, handleSubmit, values, isValid }) => (
+            <View>
+              <Input
+                labelText="Email"
+                placeholder="Please enter your email address"
+                value={values.email}
+                onChangeText={handleChange("email")}
+                errorText="Email is required"
+              />
+              <PasswordInput labelText="Password" value={values.password} onChangeText={handleChange("password")} errorText="Password is required" />
+              <Button onPress={handleSubmit} text="Login" disabled={!isValid} />
+              <Text style={styles.text}> Sign Up With</Text>
+              <TouchableOpacity style={styles.spotifyButton} onPress={() => navigation.navigate("Spotify")}>
+                <Entypo name="spotify" size={64} style={styles.spotifyIcon} />
+              </TouchableOpacity>
+              <Text style={styles.text}>Don't have an account? </Text>
+              <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+                <Text style={styles.register}>Register Now</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </Formik>
+      </SafeAreaView>
+    </View>
   );
 }

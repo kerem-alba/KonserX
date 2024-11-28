@@ -18,8 +18,9 @@ export default function IntroductionScreen() {
         navigation.navigate("Login");
       } else {
         navigation.navigate("Login");
+
         //navigation.navigate("Main", { screen: "Home" });
-        console.log("token found going home:", token);
+        console.log("token found going home");
       }
     };
 

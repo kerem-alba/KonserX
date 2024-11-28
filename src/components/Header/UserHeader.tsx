@@ -8,6 +8,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { useLocationStore } from "../../stores/locationStore";
 import { LinearGradient } from "expo-linear-gradient";
 import { PRIMARY_COLOR } from "../../utils/colors";
+import { StatusBar } from "expo-status-bar";
 
 export default function UserHeader() {
   const { latitude, longitude, formattedAddress, setLocation } = useLocationStore();
@@ -32,19 +33,22 @@ export default function UserHeader() {
   };
 
   return (
-    <LinearGradient style={styles.container} colors={[PRIMARY_COLOR, "transparent"]} end={[0.5, 0.8]}>
-      <View style={styles.innerContainer}>
-        <View style={styles.location}>
-          <Entypo name="location" size={16} color="lightgray" />
-          <Text style={styles.locationText}>{formattedAddress || "Waiting for location..."}</Text>
+    <View>
+      <StatusBar style="light" />
+      <LinearGradient style={styles.container} colors={[PRIMARY_COLOR, "transparent"]} end={[0.5, 0.8]}>
+        <View style={styles.innerContainer}>
+          <View style={styles.location}>
+            <Entypo name="location" size={16} color="lightgray" />
+            <Text style={styles.locationText}>{formattedAddress || "Waiting for location..."}</Text>
+          </View>
+          <View style={styles.profileInfoContainer}>
+            <Text style={styles.text}>{userProfile ? userProfile.name : "User"}</Text>
+            <Pressable>
+              <Image source={{ uri: userProfile?.imageUrl || "default_image_url" }} style={styles.image} />
+            </Pressable>
+          </View>
         </View>
-        <View style={styles.profileInfoContainer}>
-          <Text style={styles.text}>{userProfile ? userProfile.name : "User"}</Text>
-          <Pressable>
-            <Image source={{ uri: userProfile?.imageUrl || "default_image_url" }} style={styles.image} />
-          </Pressable>
-        </View>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </View>
   );
 }

@@ -8,6 +8,7 @@ interface RequestBody {
 
 export const loginService = async (body: RequestBody) => {
   try {
+    console.log("LoginService:", body);
     const response = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
       headers: api_header_register(),

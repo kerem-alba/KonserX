@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,7 +14,7 @@ import PopularConcertsScreen from "../screens/Concerts/PopularConcertsScreen";
 import FavoriteConcertsScreen from "../screens/Concerts/FavoriteConcertsScreen";
 import LogoutScreen from "../screens/Logout/LogoutScreen";
 import { Ionicons } from "@expo/vector-icons";
-import { PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR } from "../utils/colors";
+import { BACKGROUND_COLOR, PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_LIGHT } from "../utils/colors";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -24,6 +23,16 @@ function BottomTabNavigation() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarStyle: {
+          backgroundColor: BACKGROUND_COLOR,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          borderWidth: 0.1,
+          borderRadiusColor: SECONDARY_COLOR,
+          opacity: 0.96,
+          position: "absolute",
+          elevation: 2,
+        },
         headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: any;
@@ -39,7 +48,7 @@ function BottomTabNavigation() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: PRIMARY_COLOR,
-        tabBarInactiveTintColor: TEXT_COLOR,
+        tabBarInactiveTintColor: TEXT_LIGHT,
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />

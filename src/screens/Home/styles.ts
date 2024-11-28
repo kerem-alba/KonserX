@@ -1,5 +1,7 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 import { BACKGROUND_COLOR, PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_LIGHT } from "../../utils/colors";
+
+const width = Dimensions.get("window").width;
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,6 +14,12 @@ export const styles = StyleSheet.create({
   splashContainer: {
     flex: 1,
     justifyContent: "center",
-    width: "100%",
+    alignItems: "center",
+  },
+  splashImage: {
+    flex: 1,
+    width: width,
+    resizeMode: "cover",
+    marginBottom: -40,
   },
 });
