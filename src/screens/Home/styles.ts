@@ -11,15 +11,4 @@ export const styles = StyleSheet.create({
   footer: {
     height: 50,
   },
-  splashContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  splashImage: {
-    flex: 1,
-    width: width,
-    resizeMode: "cover",
-    marginBottom: -40,
-  },
 });

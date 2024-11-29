@@ -134,3 +134,32 @@ export const getConcertsByFavoriteGenres = async (genres: string[]): Promise<any
     throw error;
   }
 };
+
+export const getFilteredConcerts = async (genres: string[], cities: string[], dateRange: { start: string | null; end: string | null } | null) => {
+  console.log("getFilteredConcerts", genres, cities, dateRange);
+  try {
+    const body = {
+      genres,
+      cities,
+      dateRange,
+    };
+
+    const response = await fetch(`${BASE_URL}/concerts/filter`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error fetching filtered concerts: HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching filtered concerts:", error instanceof Error ? error.message : error);
+    throw error;
+  }
+};

@@ -4,6 +4,8 @@ import { RootStackParamList } from "../../navigations/type";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { getTokenFromAsyncStore } from "../../services/asyncStorageService";
+import { initializeLocation } from "../../services/locationService";
+import { fetchGenres } from "../../services/concertService";
 
 type NavigationProps = BottomTabScreenProps<RootStackParamList, "Intro">["navigation"];
 
@@ -25,6 +27,8 @@ export default function IntroductionScreen() {
     };
 
     checkToken();
+    initializeLocation();
+    fetchGenres();
   }, []);
 
   return (

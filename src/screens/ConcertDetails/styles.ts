@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
     height: 80,
   },
   artistName: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
     color: PRIMARY_COLOR,
     textAlign: "center",
@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
   },
   city: {
     fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 18,
     color: PRIMARY_COLOR,
     paddingTop: 5,
   },
@@ -87,21 +87,21 @@ export const styles = StyleSheet.create({
     width: width * 0.35,
   },
   dayName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     color: SECONDARY_COLOR,
   },
   day: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "bold",
     color: PRIMARY_COLOR,
   },
   month: {
-    fontSize: 16,
+    fontSize: 14,
     color: SECONDARY_COLOR,
   },
   year: {
-    fontSize: 12,
+    fontSize: 10,
     color: TEXT_LIGHT,
   },
 });

@@ -10,12 +10,10 @@ import { useSpotifyTokenStore } from "../../stores/spotifyTokenStore";
 import { fetchFavoriteConcerts } from "../../services/concertService";
 import { getConcertsByUpcoming } from "../../api/concertsApi";
 import { getConcertsByPopularity } from "../../api/concertsApi";
-import * as SplashScreen from "expo-splash-screen";
 import { Concert } from "../../utils/types";
 import { styles } from "./styles";
 
 type NavigationProps = StackNavigationProp<RootStackParamList, "PopularConcerts">;
-SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
   console.log("HomeScreen");
@@ -30,10 +28,7 @@ export default function HomeScreen() {
   console.log("accessToken", accessToken);
 
   useEffect(() => {
-    console.log("here1  ");
     const fetchConcerts = async () => {
-      console.log("here5  ");
-      console.log("here4  ");
       const upcomingConcerts = await getConcertsByUpcoming(10);
       const popularConcerts = await getConcertsByPopularity(6);
       setUpcomingConcerts(upcomingConcerts);
@@ -42,27 +37,10 @@ export default function HomeScreen() {
         const favoriteConcerts = await fetchFavoriteConcerts(accessToken);
         setFavoriteConcerts(favoriteConcerts);
       }
-      console.log("here3  ");
       setAppIsReady(true);
     };
     fetchConcerts();
   }, [accessToken]);
-
-  const onLayoutRootView = useCallback(() => {
-    console.log("here2  ");
-    if (appIsReady) {
-      SplashScreen.hide();
-    }
-  }, [appIsReady]);
-
-  if (!appIsReady) {
-    return (
-      <View style={styles.splashContainer}>
-        <Image style={styles.splashImage} source={require("../../../assets/splash.jpg")} />
-        <ActivityIndicator size="large" color="#151718" />
-      </View>
-    );
-  }
 
   const navigateToPopularConcerts = () => {
     navigation.navigate("PopularConcerts");
@@ -77,7 +55,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
+    <View style={styles.container}>
       <UserHeader />
       <ScrollView>
         <ConcertCarousel

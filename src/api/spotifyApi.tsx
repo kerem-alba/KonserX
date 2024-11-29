@@ -1,4 +1,4 @@
-import { formatArtistData } from "../services/spotifyService";
+import { formatArtistData } from "../utils/spotifyUtils";
 
 export const getUserProfileFromSpotify = async (accessToken: string) => {
   const userProfileResponse = await fetch("https://api.spotify.com/v1/me", {

@@ -16,3 +16,11 @@ export const api_header_register = (): Headers => {
   FETCH_HEADER.append("Content-Type", "application/json");
   return FETCH_HEADER;
 };
+
+export const currentCity = {
+  value: "Türkiye",
+};
+
+export const genres = {
+  value: [],
+};
