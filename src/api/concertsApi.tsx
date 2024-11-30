@@ -136,7 +136,6 @@ export const getConcertsByFavoriteGenres = async (genres: string[]): Promise<any
 };
 
 export const getFilteredConcerts = async (genres: string[], cities: string[], dateRange: { start: string | null; end: string | null } | null) => {
-  console.log("getFilteredConcerts", genres, cities, dateRange);
   try {
     const body = {
       genres,

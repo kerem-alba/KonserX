@@ -22,7 +22,6 @@ export const initializeLocation = async () => {
     const formattedAddress = `${address.city || ""}, ${address.country || ""}`;
     setLocation(userLocation.coords.latitude, userLocation.coords.longitude, formattedAddress);
     currentCity.value = address.city;
-    console.log("Current location set:", formattedAddress);
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error initializing location:", error.message);

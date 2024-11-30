@@ -16,7 +16,6 @@ export const loginService = async (body: RequestBody) => {
     });
     const data = await response.json();
     console.log("Token:", data.token);
-    console.log("Data:", data);
 
     if (!response.ok) {
       const errorData = await response.json();

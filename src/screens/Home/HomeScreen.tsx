@@ -11,6 +11,7 @@ import { fetchFavoriteConcerts } from "../../services/concertService";
 import { getConcertsByUpcoming } from "../../api/concertsApi";
 import { getConcertsByPopularity } from "../../api/concertsApi";
 import { Concert } from "../../utils/types";
+import Loading from "../../components/Loading/Loading";
 import { styles } from "./styles";
 
 type NavigationProps = StackNavigationProp<RootStackParamList, "PopularConcerts">;
@@ -18,7 +19,7 @@ type NavigationProps = StackNavigationProp<RootStackParamList, "PopularConcerts"
 export default function HomeScreen() {
   console.log("HomeScreen");
   const navigation = useNavigation<NavigationProps>();
-  const [appIsReady, setAppIsReady] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [favoriteConcerts, setFavoriteConcerts] = useState<Concert[]>([]);
   const [upcomingConcerts, setUpcomingConcerts] = useState<Concert[]>([]);
@@ -37,37 +38,39 @@ export default function HomeScreen() {
         const favoriteConcerts = await fetchFavoriteConcerts(accessToken);
         setFavoriteConcerts(favoriteConcerts);
       }
-      setAppIsReady(true);
+      setLoading(false);
     };
     fetchConcerts();
   }, [accessToken]);
 
-  const navigateToPopularConcerts = () => {
-    navigation.navigate("PopularConcerts");
-  };
-
-  const navigateToFavoriteConcerts = () => {
-    navigation.navigate("FavoriteConcerts");
-  };
-
-  const navigateToExplore = () => {
-    navigation.navigate("Main", { screen: "Explore" });
-  };
-
   return (
     <View style={styles.container}>
       <UserHeader />
-      <ScrollView>
-        <ConcertCarousel
-          concerts={favoriteConcerts}
-          header="İlgini çekebilecek konserler"
-          text="Tümünü gör"
-          onPress={() => navigateToFavoriteConcerts()}
-        />
-        <ConcertGrid concerts={popularConcerts} header="Popüler konserler" text="Tümünü gör" onPress={() => navigateToPopularConcerts()} />
-        <ConcertCarousel concerts={upcomingConcerts} header="Yaklaşan konserler" text="Tümünü gör" onPress={() => navigateToExplore()} />
-        <View style={styles.footer}></View>
-      </ScrollView>
+      {loading ? (
+        <Loading />
+      ) : (
+        <ScrollView>
+          <ConcertCarousel
+            concerts={favoriteConcerts}
+            header="İlgini çekebilecek konserler"
+            text="Tümünü gör"
+            onPress={() => navigation.navigate("FavoriteConcerts")}
+          />
+          <ConcertGrid
+            concerts={popularConcerts}
+            header="Popüler konserler"
+            text="Tümünü gör"
+            onPress={() => navigation.navigate("PopularConcerts")}
+          />
+          <ConcertCarousel
+            concerts={upcomingConcerts}
+            header="Yaklaşan konserler"
+            text="Tümünü gör"
+            onPress={() => navigation.navigate("Main", { screen: "Explore" })}
+          />
+          <View style={styles.footer}></View>
+        </ScrollView>
+      )}
     </View>
   );
 }

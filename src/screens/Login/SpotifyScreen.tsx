@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigations/type";
 import { useSpotifyTokenStore } from "../../stores/spotifyTokenStore";
-import { useProfileStore } from "../../stores/profileStore";
+import { useProfileStore } from "../../stores/spotifyProfileStore";
 import { getUserProfileFromSpotify } from "../../api/spotifyApi";
 import { spotifyAuthConfig, spotifyEndpoints } from "../../config/spotifyAuthConfig";
 import { useAuthRequest, makeRedirectUri } from "expo-auth-session";

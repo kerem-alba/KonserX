@@ -3,7 +3,6 @@ import { getConcertsByFavoriteArtists, getConcertsByFavoriteGenres } from "../ap
 import { ConcertWithDetails, SpotifyArtist, Concert } from "../utils/types";
 import { getGenresList } from "../api/genresApi";
 import { genres } from "../utils/constants";
-import { startOfToday, endOfToday, startOfWeek, endOfWeek, startOfMonth, endOfMonth, isWithinInterval } from "date-fns";
 
 export const fetchFavoriteConcerts = async (spotifyAccessToken: string) => {
   const favoriteArtists = await getUserFavorites(spotifyAccessToken);
@@ -29,7 +28,7 @@ export const fetchFavoriteConcerts = async (spotifyAccessToken: string) => {
     City: concert.City,
     Id: concert.ConcertId,
     ConcertDate: concert.ConcertDate,
-    genres: [concert.genre1, concert.genre2, concert.genre3].filter(Boolean), // genre1, genre2, genre3
+    genres: [concert.genre1, concert.genre2, concert.genre3].filter(Boolean),
     ImgUrl: concert.ImgUrl,
     popularity: 0,
     Venue: concert.Venue,
@@ -58,7 +57,6 @@ export const fetchGenres = async (): Promise<string[]> => {
   try {
     const genresFetched = await getGenresList();
     genres.value = genresFetched;
-    console.log("Türler alındı:", genres);
     return genresFetched;
   } catch (error) {
     console.error("Türler alınamadı:", error);

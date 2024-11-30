@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import { styles } from "./styles";
 import React, { useState, useEffect } from "react";
-import { useProfileStore } from "../../stores/profileStore";
+import { useProfileStore } from "../../stores/spotifyProfileStore";
 import Entypo from "@expo/vector-icons/Entypo";
 import { LinearGradient } from "expo-linear-gradient";
 import { PRIMARY_COLOR } from "../../utils/colors";

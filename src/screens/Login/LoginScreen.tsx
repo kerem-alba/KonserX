@@ -1,5 +1,5 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, Pressable, Alert } from "react-native";
-import React, { useEffect, useCallback } from "react";
+import { View, Text, Image, ScrollView, TouchableOpacity, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../navigations/type";
@@ -15,13 +15,17 @@ import { useMutation } from "@tanstack/react-query";
 import { loginService } from "../../api/authApi";
 import { useTokenStore } from "../../stores/authTokenStore";
 import { LoginSchema } from "../../utils/LoginSchema";
+import { useUserStore } from "../../stores/userStore";
+import { getUserByEmail } from "../../api/usersApi";
 
 type NavigationProps = StackNavigationProp<RootStackParamList, "Login">;
 
 export default function LoginScreen() {
   const navigation = useNavigation<NavigationProps>();
+  const [email, setEmail] = useState<string>("");
 
   const login = (email: string, password: string) => {
+    setEmail(email);
     mutate({ email, password });
   };
 
@@ -31,11 +35,13 @@ export default function LoginScreen() {
   });
 
   useEffect(() => {
-    console.log("data", data);
     console.log("isSuccess", isSuccess);
 
     if (isSuccess && data?.token) {
       useTokenStore.getState().setToken(data.token);
+      console.log("email:", email);
+      getAndStoreUser(email);
+      console.log("datas in login:", data);
       console.log("Login Success going home");
       navigation.navigate("Main", { screen: "Home" });
     }
@@ -47,6 +53,13 @@ export default function LoginScreen() {
       console.log("Login Pending");
     }
   }, [isSuccess, isError, data]);
+
+  const getAndStoreUser = async (email: string) => {
+    const response = await getUserByEmail(email);
+    const user = response.user;
+    console.log("user in login:", user);
+    useUserStore.getState().setUser(user);
+  };
 
   return (
     <View style={{ flex: 1 }}>
