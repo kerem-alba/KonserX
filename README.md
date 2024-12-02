@@ -83,6 +83,31 @@
   <img src="assets/Screenshots/home2.jpg" alt="Home Screen" width="300" />
 </div>
 
+### İlgini Çekebilecek Konserler
+
+Uygulama, kullanıcıların müzik zevkine göre önerilen konserleri dinamik bir şekilde belirler. Bu süreç şu adımlarla işler:
+
+1. **Spotify Verilerine Dayalı Öneri**:
+   - Kullanıcı Spotify ile giriş yaptığında, uygulama kullanıcının takip ettiği ve en çok dinlediği sanatçıları **Spotify API** üzerinden çeker.
+   - Spotify API kullanılarak, bu sanatçılara ait konser bilgileri veritabanında sorgulanır. Bu, kullanıcıya ilgisini çekebilecek konserlerin ilk listesini sağlar.
+
+2. **Yetersiz Konser Verisi Durumu**:
+   - Eğer kullanıcının favori sanatçıları için yeterli konser verisi bulunmazsa (örneğin, belirli bir sayıda konser verisi gelmezse), uygulama Spotify'dan alınan sanatçıların **müzik türlerine** dayalı olarak ek arama yapar.
+   - Kullanıcının favori sanatçılarının müzik türlerine uygun yeni sanatçılar ve onların konser bilgileri **Concerts Tablosu**’nda sorgulanır.
+
+3. **Müzik Türlerine Göre Öneri**:
+   - Spotify'daki en çok dinlenen sanatçılarının müzik türleri belirlenir ve bu türlere uygun konserler **Concerts Tablosu**'nda aranır.
+   - Bu sayede, kullanıcı sadece favori sanatçılarıyla sınırlı kalmayıp, ilgi duyabileceği yeni sanatçılar ve konserler hakkında da öneriler alır.
+
+4. **Veri Filtreleme ve Eşleştirme**:
+   - Belirli sayıda konser verisi çekildikten sonra, bu veriler kullanıcıya gösterilmeden önce filtrelenir. Konserlerin tarihleri ve şehirleri, kullanıcının tercihlerine ve lokasyonuna göre optimize edilir.
+   - Eğer kullanıcının lokasyonu mevcutsa, konserler **şehre göre filtrelenir** ve kullanıcının bulunduğu şehre yakın etkinlikler öncelikli olarak gösterilir.
+
+5. **Konser Önerilerinin Sunulması**:
+   - Sonuç olarak, kullanıcıya "İlgini Çekebilecek Konserler" başlığı altında, müzik türlerine ve favori sanatçılara göre özelleştirilmiş bir konser listesi sunulur.
+   - Bu liste, kullanıcının ilgi alanlarına en uygun konserlerle birlikte, yeni sanatçılar ve türler keşfetmesini sağlar.
+
+Bu algoritma, kullanıcı deneyimini kişiselleştirerek, her kullanıcı için benzersiz ve ilgi çekici konser önerileri oluşturur.
 
 ### Keşfet Sayfası
 - Şehre, türe ve tarihe göre filtreleme yapılabilir.
