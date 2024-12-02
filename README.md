@@ -16,11 +16,31 @@
 ## Teknoloji Yığını
 
 ### Database
-- **Azure SQL Database**
-  - **Concerts Tablosu:** Sanatçı adı, resmi, konser mekanı, şehir ve tarih bilgileri içerir.
-  - **Artists Tablosu:** Spotify'dan alınan sanatçı bilgilerini (isim, popülerlik, müzik türleri, resim URL'si, Spotify ID) içerir.
-  - **Users Tablosu:** Kullanıcı kayıtları için.
-  - **Genres Tablosu:** Spotify türlerini 12 ana kategoriye eşleyen bir haritalama içerir.
+
+- **Azure SQL Database**: Uygulamanın temel veritabanıdır ve veriler düzenli bir şekilde saklanır. Aşağıdaki tablolar kullanılır:
+
+  - **Concerts Tablosu**:
+    - Web scraping ile elde edilen konser bilgilerini içerir.
+    - **Python** kullanılarak, **BeautifulSoup** ile **biletinial.com** gibi web sitelerinden konser bilgileri (sanatçı adı, konser mekanı, şehir, tarih) çekilir.
+    - Çekilen bilgiler düzenlenip sanatçı ismi trimlenerek tabloya kaydedilir.
+    - Tablo, sanatçıların konser detaylarını kullanıcıya sunmak için temel bir veri kaynağıdır.
+
+  - **Artists Tablosu**:
+    - **Spotify API** üzerinden elde edilen sanatçı bilgilerini içerir:
+      - Sanatçının adı, popülerlik puanı, Spotify’da kayıtlı müzik türleri, resmi (resim URL'si) ve Spotify ID’si.
+    - Web scraping ile alınan sanatçı isimleri, Spotify API’de sorgulanır ve bu bilgiler tabloya kaydedilir.
+    - Bu tablo, sanatçılarla ilgili detaylı bilgi ve öneri sunmak için kullanılır.
+
+  - **Users Tablosu**:
+    - Uygulama kullanıcılarının kayıtlarını ve kimlik doğrulama bilgilerini içerir.
+    - Spotify ile giriş yapan kullanıcılar için Spotify’dan alınan isim ve email bilgileri burada saklanır.
+    - Kullanıcıların tercihlerini yönetmek için temel bir tablodur.
+
+  - **Genres Tablosu**:
+    - Spotify’dan alınan müzik türlerini uygulamanın oluşturduğu 12 ana kategoriye eşler.
+    - Tablo, kullanıcıların favori türlerine göre öneriler sunmak için Spotify türlerini kategorize eder.
+    - Spotify türleri, bu tabloda bir liste şeklinde saklanarak dinamik ve genişletilebilir bir yapı sunar.
+
 
 ### Backend
 - **Node.js ve Express.js** 
